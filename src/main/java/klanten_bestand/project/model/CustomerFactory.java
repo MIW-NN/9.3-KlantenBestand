@@ -9,10 +9,9 @@ import java.util.Scanner;
 
 public class CustomerFactory {
     public static final int DEFAULT_SIZE = 100;
-    private final String PLACES_FILE = "9.3 Plaatsnamenlijst.txt";
-    private final String NAMES_FILE = "9.3 NamenlijstGroot.csv";
-    private final String CUSTOMERS_FILE = "Klanten.txt";
-    private final ClassLoader classloader;
+    private final String PLACES_FILE = "src/main/resources/9.3 Plaatsnamenlijst.txt";
+    private final String NAMES_FILE = "src/main/resources/9.3 NamenlijstGroot.csv";
+    private final String CUSTOMERS_FILE = "src/main/resources/Klanten.txt";
     public int listSize;
     public static ArrayList<String> namesList;
     public static ArrayList<String> placesList;
@@ -25,7 +24,6 @@ public class CustomerFactory {
 
     public CustomerFactory(int listSize) {
         this.listSize = listSize;
-        classloader = Thread.currentThread().getContextClassLoader();
         createPlacesList();
         createNamesList();
         createCustomersList();
@@ -35,16 +33,13 @@ public class CustomerFactory {
         Scanner namesReader;
         placesList = new ArrayList<>();
         try {
-            var filePath = classloader.getResource(PLACES_FILE).toURI().getPath();
-            File namesFile = new File(filePath);
+            File namesFile = new File(PLACES_FILE);
             namesReader = new Scanner(namesFile);
             while (namesReader.hasNextLine()) {
                 placesList.add(namesReader.nextLine());
             }
         } catch (FileNotFoundException fileNotFound) {
             System.out.println("Het namenbestand is niet gevonden.");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -52,8 +47,7 @@ public class CustomerFactory {
         Scanner namesReader;
         namesList = new ArrayList<>();
         try {
-            var filePath = classloader.getResource(NAMES_FILE).toURI().getPath();
-            File namesFile = new File(filePath);
+            File namesFile = new File(NAMES_FILE);
             namesReader = new Scanner(namesFile);
             while (namesReader.hasNextLine()) {
                 namesList.add(namesReader.nextLine());
@@ -61,8 +55,6 @@ public class CustomerFactory {
 
         } catch (FileNotFoundException fileNotFound) {
             System.out.println("Het namenbestand is niet gevonden.");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -90,8 +82,7 @@ public class CustomerFactory {
     public void createCustomerFile() {
         try {
 
-            var filePath = classloader.getResource(PLACES_FILE).toURI().getPath();
-            File customersFile = new File(filePath);
+            File customersFile = new File(CUSTOMERS_FILE);
             printWriter = new PrintWriter(customersFile);
             for (int i = 0; i < listSize; i++) {
                 String name = customerList.get(i).getInfix();

@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CustomerFactoryTest {
-    private final String PLACES_FILE = "9.3 Plaatsnamenlijst.txt";
-    private final String NAMES_FILE = "9.3 NamenlijstGroot.csv";
-    private final String CUSTOMERS_FILE = "Klanten.txt";
+    private final String CUSTOMERS_FILE = "src/main/resources/Klanten.txt";
 
     @Test
     public void onCreatingCustomerFactory_arraysAreFilled() {
@@ -29,17 +27,14 @@ public class CustomerFactoryTest {
     }
 
     @Test
-    public void onCreateCustomerFile_expectCustomerFileToBeFilled() throws URISyntaxException, FileNotFoundException {
+    public void onCreateCustomerFile_expectCustomerFileToBeFilled() throws FileNotFoundException {
         var customerCount = 75;
 
         var factory = new CustomerFactory(customerCount);
         factory.createCustomerFile();
 
-        var classloader = Thread.currentThread().getContextClassLoader();
-        var filePath = classloader.getResource(CUSTOMERS_FILE).toURI().getPath();
-
         var array = new ArrayList<>();
-        var file = new File(filePath);
+        var file = new File(CUSTOMERS_FILE);
         var reader = new Scanner(file);
 
         while (reader.hasNextLine()) {
@@ -50,10 +45,8 @@ public class CustomerFactoryTest {
         EmptyKlantenTXT();
     }
 
-    public void EmptyKlantenTXT() throws FileNotFoundException, URISyntaxException {
-        var classloader = Thread.currentThread().getContextClassLoader();
-        var filePath = classloader.getResource(CUSTOMERS_FILE).toURI().getPath();
-        PrintWriter printWriter = new PrintWriter(filePath);
+    public void EmptyKlantenTXT() throws FileNotFoundException {
+        PrintWriter printWriter = new PrintWriter(CUSTOMERS_FILE);
         printWriter.print("");
         printWriter.close();
     }
