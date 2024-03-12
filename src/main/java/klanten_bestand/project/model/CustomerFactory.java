@@ -9,10 +9,9 @@ import java.util.Scanner;
 
 public class CustomerFactory {
     public static final int DEFAULT_SIZE = 100;
-    private final String PLACES_FILE = "9.3 Plaatsnamenlijst.txt";
-    private final String NAMES_FILE = "9.3 NamenlijstGroot.csv";
-    private final String CUSTOMERS_FILE = "Klanten.txt";
-    private final ClassLoader classloader;
+    private final String PLACES_FILE = "src/main/resources/9.3 Plaatsnamenlijst.txt";
+    private final String NAMES_FILE = "src/main/resources/9.3 NamenlijstGroot.csv";
+    private final String CUSTOMERS_FILE = "src/main/resources/Klanten.txt";
     public int listSize;
     public static ArrayList<String> namesList;
     public static ArrayList<String> placesList;
@@ -24,7 +23,6 @@ public class CustomerFactory {
     }
 
     public CustomerFactory(int listSize) {
-        classloader = Thread.currentThread().getContextClassLoader();
     }
 
     public void createCustomerFile() {
