@@ -10,41 +10,41 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class KlantFactoryTest {
-    private final String CUSTOMERS_FILE = "src/main/resources/Klanten.txt";
+    private final String KLANTEN_BESTAND = "src/main/resources/Klanten.txt";
 
     @Test
     public void onCreatingCustomerFactory_arraysAreFilled() {
-        Assert.assertNull(KlantFactory.namenlijst);
-        Assert.assertNull(KlantFactory.plaatsenlijst);
-        Assert.assertNull(KlantFactory.klantenlijst);
+        Assert.assertNull(KlantFactory.namenLijst);
+        Assert.assertNull(KlantFactory.plaatsenLijst);
+        Assert.assertNull(KlantFactory.klantenLijst);
         var factory = new KlantFactory(75);
 
-        Assert.assertNotEquals(0, KlantFactory.namenlijst.size());
-        Assert.assertNotEquals(0, KlantFactory.plaatsenlijst.size());
-        Assert.assertNotEquals(0, KlantFactory.klantenlijst.size());
+        Assert.assertNotEquals(0, KlantFactory.namenLijst.size());
+        Assert.assertNotEquals(0, KlantFactory.plaatsenLijst.size());
+        Assert.assertNotEquals(0, KlantFactory.klantenLijst.size());
     }
 
     @Test
-    public void onCreateCustomerFile_expectCustomerFileToBeFilled() throws FileNotFoundException {
-        var customerCount = 75;
+    public void onMaakKlantenBestand_expectKlantenBestandGevuld() throws FileNotFoundException {
+        var aantalKlanten = 75;
 
-        var factory = new KlantFactory(customerCount);
-        factory.createCustomerFile();
+        var factory = new KlantFactory(aantalKlanten);
+        factory.maakKlantenBestand();
 
         var array = new ArrayList<>();
-        var file = new File(CUSTOMERS_FILE);
+        var file = new File(KLANTEN_BESTAND);
         var reader = new Scanner(file);
 
         while (reader.hasNextLine()) {
             array.add(reader.nextLine());
         }
 
-        Assert.assertEquals(customerCount, array.size());
-        EmptyKlantenTXT();
+        Assert.assertEquals(aantalKlanten, array.size());
+        leegKlantenTxt();
     }
 
-    public void EmptyKlantenTXT() throws FileNotFoundException {
-        PrintWriter printWriter = new PrintWriter(CUSTOMERS_FILE);
+    private void leegKlantenTxt() throws FileNotFoundException {
+        PrintWriter printWriter = new PrintWriter(KLANTEN_BESTAND);
         printWriter.print("");
         printWriter.close();
     }
