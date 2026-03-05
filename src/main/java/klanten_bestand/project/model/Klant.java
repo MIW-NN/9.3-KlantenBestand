@@ -2,17 +2,21 @@ package klanten_bestand.project.model;
 
 public class Klant {
 
-    int klantId;
-    String tussenvoegsel;
-    String achternaam;
-    String woonplaats;
-    static int aantalKlanten = 0;
+    private int klantId;
+    private String tussenvoegsel;
+    private String achternaam;
+    private String woonplaats;
+    private static int aantalKlanten = 0;
 
     public Klant(String tussenvoegsel, String achternaam, String woonplaats) {
         this.klantId = aantalKlanten++;
         this.tussenvoegsel = tussenvoegsel;
         this.achternaam = achternaam;
         this.woonplaats = woonplaats;
+    }
+
+    public int getKlantId() {
+        return klantId;
     }
 
     public String getTussenvoegsel() {
